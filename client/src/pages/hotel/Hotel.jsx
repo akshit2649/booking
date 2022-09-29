@@ -31,8 +31,9 @@ const Hotel = () => {
     <div>
       <Navbar />
       <Header type="list" />
-      <div className="hotalContainer">
+      <div className="hotelContainer">
         <div className="hotelWrapper">
+          <button className="bookNow">Reserve or Book Now!</button>
           <h1 className="hotelTitle">Grand Hotel</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
@@ -44,7 +45,7 @@ const Hotel = () => {
           </span>
           <div className="hotelImages">
             {photos.map(photo => (
-              <div className="hotelImageWrapper">
+              <div className="hotelImgWrapper">
                 <img src={photo.src} alt="image" className="hotelImg" />
               </div>
             ))}
