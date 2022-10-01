@@ -13,7 +13,6 @@ const connect = async () => {
   }
 };
 
-//emitters
 mongoose.connection.on('disconnected', () => {
   console.log('MongoDB disconnected');
 });
