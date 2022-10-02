@@ -31,7 +31,7 @@ export const login = async (req, res, next) => {
 
     const { password, isAdmin, ...otherDetails } = user._doc;
     res
-      .cookie('access-token', token, {
+      .cookie('access_token', token, {
         httpOnly: true, //An HttpOnly Cookie is a tag added to a browser cookie that prevents client-side scripts from accessing data. It provides a gate that prevents the specialized cookie from being accessed by anything other than the server.
       })
       .status(200)
