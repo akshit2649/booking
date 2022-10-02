@@ -38,8 +38,8 @@ app.use((err, req, res, next) => {
   const errorMessage = err.message || 'Something went wrong!';
   return res.status(errorStatus).json({
     success: false,
-    status: err.status,
-    message: err.message,
+    status: errorStatus,
+    message: errorMessage,
     stack: err.stack,
   });
 });
