@@ -1,4 +1,3 @@
-import { createError } from '../utils/error.js';
 import Hotel from '../models/Hotel.js ';
 
 export const createHotel = async (req, res, next) => {
@@ -7,7 +6,7 @@ export const createHotel = async (req, res, next) => {
     const savedHotel = await newHotel.save();
     res.status(200).json(savedHotel);
   } catch (err) {
-    next(createError);
+    next(err);
   }
 };
 
@@ -22,7 +21,7 @@ export const updateHotel = async (req, res, next) => {
     );
     res.status(200).json(updatedHotel);
   } catch (err) {
-    next(createError);
+    next(err);
   }
 };
 
@@ -31,7 +30,7 @@ export const deleteHotel = async (req, res, next) => {
     await Hotel.findByIdAndDelete(req.params.id);
     res.status(200).json('Hotel has been deleted!');
   } catch (err) {
-    next(createError);
+    next(err);
   }
 };
 
@@ -40,7 +39,7 @@ export const getHotel = async (req, res, next) => {
     const hotel = await Hotel.findById(req.params.id);
     res.status(200).json(hotel);
   } catch (err) {
-    next(createError);
+    next(err);
   }
 };
 
@@ -49,6 +48,20 @@ export const getHotels = async (req, res, next) => {
     const hotels = await Hotel.find();
     res.status(200).json(hotels);
   } catch (err) {
-    nexr(createError);
+    next(err);
+  }
+};
+
+export const countByCity = async (req, res, next) => {
+  const cities = req.query.cities.split(',');
+  try {
+    const list = await Promise.all(
+      cities.map(city => {
+        return Hotel.countDocuments({ city: city });
+      })
+    );
+    res.status(200).json(list);
+  } catch (err) {
+    next(err);
   }
 };
