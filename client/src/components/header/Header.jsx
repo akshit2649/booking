@@ -10,10 +10,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { DateRange } from 'react-date-range';
 import './Header.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { format } from 'date-fns';
+import { SearchContext } from '../../context/SearchContext';
 
 const Header = ({ type }) => {
   const [openDate, setOpenDate] = useState(false);
@@ -42,7 +43,10 @@ const Header = ({ type }) => {
     });
   };
 
+  const { dispatch } = useContext(SearchContext);
+
   const handleSearch = () => {
+    dispatch({ type: 'NEW_SEARCH', payload: { destination, dates, options } });
     navigate('/hotels', { state: { destination, dates, options } });
   };
 
