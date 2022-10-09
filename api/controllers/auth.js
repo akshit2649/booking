@@ -35,7 +35,7 @@ export const login = async (req, res, next) => {
         httpOnly: true, //An HttpOnly Cookie is a tag added to a browser cookie that prevents client-side scripts from accessing data. It provides a gate that prevents the specialized cookie from being accessed by anything other than the server.
       })
       .status(200)
-      .json(otherDetails);
+      .json({ details: { ...otherDetails }, isAdmin });
   } catch (err) {
     next(err);
   }
