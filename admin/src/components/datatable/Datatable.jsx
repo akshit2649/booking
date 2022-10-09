@@ -1,31 +1,29 @@
-import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import './datatable.scss';
+import { DataGrid } from '@mui/x-data-grid';
+import { userColumns, userRows } from '../../datatablesource';
+import { Link } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
+import { useState } from 'react';
 
 const Datatable = () => {
-  const [data, setData] = useState(userRows);
+  const { data, loading, error } = useFetch('/users');
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+  const handleDelete = id => {
+    // setData(data.filter(item => item.id !== id));
   };
 
   const actionColumn = [
     {
-      field: "action",
-      headerName: "Action",
+      field: 'action',
+      headerName: 'Action',
       width: 200,
-      renderCell: (params) => {
+      renderCell: params => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
+            <Link to="/users/test" style={{ textDecoration: 'none' }}>
               <div className="viewButton">View</div>
             </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
+            <div className="deleteButton" onClick={() => handleDelete(params.row.id)}>
               Delete
             </div>
           </div>
@@ -48,6 +46,7 @@ const Datatable = () => {
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
+        getRowId={row => row._id}
       />
     </div>
   );
